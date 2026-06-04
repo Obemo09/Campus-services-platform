@@ -15,6 +15,7 @@ import Marketplace from './pages/Marketplace';
 import LostFound from './pages/LostFound';
 import Carpooling from './pages/Carpooling';
 import useIsMobile from './hooks/useIsMobile';
+import Footer from './components/Footer';
 
 function Layout({ children }) {
   const isMobile = useIsMobile();
@@ -25,9 +26,11 @@ function Layout({ children }) {
         flex: 1,
         marginLeft: isMobile ? 0 : 'var(--sidebar-w)',
         paddingBottom: isMobile ? 70 : 0,
-        overflowY: 'auto', minHeight: '100vh'
+        overflowY: 'auto', minHeight: '100vh',
+        display: 'flex', flexDirection: 'column'
       }}>
-        {children}
+        <div style={{ flex: 1 }}>{children}</div>
+        <Footer />
       </main>
       {isMobile && <BottomNav />}
     </div>
