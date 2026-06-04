@@ -14,6 +14,55 @@ This platform is built using a **Microservices Architecture** with:
 - **Containerization** via Docker Compose
 - **React Frontend** with mobile-responsive design
 
+## 🗺️ Architecture Diagram
+
+```mermaid
+graph TD
+    Client(["🌐 React Frontend\n(Vite + Tailwind CSS)"])
+    Gateway["🔀 API Gateway\nPort 3000"]
+    Auth["🔐 Auth Service\nPort 3001"]
+    Booking["📅 Booking Service\nPort 3002"]
+    Events["🎉 Events Service\nPort 3003"]
+    Marketplace["🛒 Marketplace Service\nPort 3004"]
+    LostFound["🔍 Lost & Found Service\nPort 3005"]
+    Carpooling["🚗 Carpooling Service\nPort 3006"]
+    Notification["🔔 Notification Service\nPort 3007"]
+    MongoDB[("🍃 MongoDB\nPort 27017")]
+    RabbitMQ[("🐰 RabbitMQ\nPort 5672")]
+
+    Client -->|HTTP Requests| Gateway
+    Gateway -->|/auth| Auth
+    Gateway -->|/bookings| Booking
+    Gateway -->|/events| Events
+    Gateway -->|/marketplace| Marketplace
+    Gateway -->|/lost-found| LostFound
+    Gateway -->|/carpooling| Carpooling
+    Gateway -->|/notifications| Notification
+
+    Auth -->|Read/Write| MongoDB
+    Booking -->|Read/Write| MongoDB
+    Events -->|Read/Write| MongoDB
+    Marketplace -->|Read/Write| MongoDB
+    LostFound -->|Read/Write| MongoDB
+    Carpooling -->|Read/Write| MongoDB
+
+    Booking -->|BookingConfirmed| RabbitMQ
+    Events -->|EventCreated| RabbitMQ
+    RabbitMQ -->|Consume Events| Notification
+
+    style Client fill:#1a2438,stroke:#c9a84c,color:#f5f0e8
+    style Gateway fill:#1a2438,stroke:#60a5fa,color:#f5f0e8
+    style Auth fill:#1a2438,stroke:#4ade80,color:#f5f0e8
+    style Booking fill:#1a2438,stroke:#60a5fa,color:#f5f0e8
+    style Events fill:#1a2438,stroke:#f472b6,color:#f5f0e8
+    style Marketplace fill:#1a2438,stroke:#c9a84c,color:#f5f0e8
+    style LostFound fill:#1a2438,stroke:#a78bfa,color:#f5f0e8
+    style Carpooling fill:#1a2438,stroke:#4ade80,color:#f5f0e8
+    style Notification fill:#1a2438,stroke:#fb923c,color:#f5f0e8
+    style MongoDB fill:#1a2438,stroke:#4ade80,color:#f5f0e8
+    style RabbitMQ fill:#1a2438,stroke:#fb923c,color:#f5f0e8
+```
+
 ## 🚀 Services
 
 | Service | Port | Description |
@@ -59,7 +108,6 @@ Copy `.env.example` to `.env` for each service:
 ```bash
 cp services/auth-service/.env.example services/auth-service/.env
 cp services/api-gateway/.env.example services/api-gateway/.env
-# repeat for all services
 ```
 
 ### 3. Start all services
@@ -97,20 +145,5 @@ npm run dev
 - 🏛️ Add, edit and delete facilities
 - 📊 View all bookings across campus
 
-## 🏛️ Architecture Diagram
-┌─────────────────┐
-            │  React Frontend │
-            │(Vite + Tailwind)│
-            └────────┬────────┘
-                     │
-            ┌────────▼────────┐
-            │   API Gateway   │
-            │   (Port 3000)   │
-            └────────┬────────┘
-                     │
-┌────────────────────┼────────────────────┐
-│                    │                    │
-┌───────▼──────┐ ┌─────────▼────────┐ ┌────────▼───────┐ │ Auth Service │ │ Booking Service │ │ Events Service │ │ (Port 3001) │ │ (Port 3002) │ │ (Port 3003) │ └──────────────┘ └──────────────────┘ └────────────────┘ | | |
-└────────────────────┼────────────────────┘ │ ┌────────▼────────┐ │ MongoDB │ │ (Port 27017) │ └─────────────────┘ │ ┌────────▼────────┐ │ RabbitMQ │ │ (Port 5672) │ └─────────────────┘
 ## 📄 License
 MIT License — ICT University Cameroon, 2026
