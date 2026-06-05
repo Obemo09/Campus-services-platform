@@ -2,8 +2,6 @@ services:
   mongodb:
     image: mongo:7
     container_name: campus-mongodb
-    ports:
-      - '27017:27017'
     volumes:
       - mongo-data:/data/db
     networks:
