@@ -2,7 +2,12 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
-  { label: 'Dashboard', icon: '⊞', path: '/dashboard' },
+  { label: 'Dashboard', icon: (
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 8.5L9 2l8 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 9v6h10V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ), path: '/dashboard' },
   { label: 'Facility Booking', icon: '📅', path: '/bookings' },
   { label: 'Events', icon: '🎉', path: '/events' },
   { label: 'Marketplace', icon: '🛒', path: '/marketplace' },
@@ -100,7 +105,14 @@ export default function Sidebar() {
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(248,113,113,0.2)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = 'rgba(248,113,113,0.1)'; }}
           >
-            ⏻ Logout
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+                <path d="M16 17l5-5-5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M21 12H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M13 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Logout
+            </span>
           </button>
         </div>
       </div>
