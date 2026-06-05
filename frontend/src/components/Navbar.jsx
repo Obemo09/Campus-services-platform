@@ -20,7 +20,14 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => { logout(); navigate('/login'); };
+  // Updated to include a native confirmation box before executing logout actions
+  const handleLogout = () => { 
+    const confirmAction = window.confirm("Are you sure you want to log out of your Campus account?");
+    if (confirmAction) {
+      logout(); 
+      navigate('/login'); 
+    }
+  };
 
   const initials = user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'U';
   const isAdmin = localStorage.getItem('userRole') === 'admin';
