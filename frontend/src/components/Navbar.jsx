@@ -20,7 +20,6 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Updated to include a native confirmation box before executing logout actions
   const handleLogout = () => { 
     const confirmAction = window.confirm("Are you sure you want to log out of your Campus account?");
     if (confirmAction) {
