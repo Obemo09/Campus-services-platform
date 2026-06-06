@@ -1,0 +1,23 @@
+---
+- name: Optimize Campus Services Staging Environment
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: Ensure system repositories are completely up to date
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Verify Docker Engine daemon is active and running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Purge dangling Docker system caches to free VPS memory
+      command: docker system prune -f
+
+    - name: Deploy and scale the microservice container cluster
+      command: docker compose -f /var/campus-services-platform/docker-compose.yml up -d

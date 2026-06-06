@@ -50,7 +50,7 @@ app.options('*', cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-user-id', 'x-user-name', 'x-user-phone', 'x-user-role'],
 }));
-app.use(limiter);
+// app.use(limiter);
 
 app.get('/health', (req, res) => {
   res.json({ service: 'api-gateway', status: 'ok' });

@@ -1,0 +1,23 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "name": "Campus Services Cluster Metrics",
+  "panels": [
+    {
+      "title": "Core Microservices - Live CPU Utilization",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "sum(rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_service!=''}[5m])) by (container_label_com_docker_compose_service)" }
+      ]
+    },
+    {
+      "title": "Cluster Memory Saturation (RAM)",
+      "type": "gauge",
+      "targets": [
+        { "expr": "container_memory_usage_bytes{container_label_com_docker_compose_service!=''}" }
+      ]
+    }
+  ],
+  "schemaVersion": 36,
+  "version": 1
+}

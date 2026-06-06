@@ -20,7 +20,9 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => { 
+  const handleLogout = (e) => {
+    if (e) e.preventDefault();
+ 
     const confirmAction = window.confirm("Are you sure you want to log out of your Campus account?");
     if (confirmAction) {
       logout(); 
